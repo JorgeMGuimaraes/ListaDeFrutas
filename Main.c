@@ -5,7 +5,6 @@
 int main() {
 	Frutas* lista = criaListaDeFrutas();
 	adicionarVariedade(&lista);
-	adicionarVariedade(&lista);
 	imprimirLista(&lista);
 	return 0;
 }
