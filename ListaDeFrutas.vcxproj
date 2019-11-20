@@ -127,6 +127,7 @@
     <ClCompile Include="Main.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsC</CompileAs>
     </ClCompile>
+    <ClCompile Include="Nodes.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nodes.h" />
