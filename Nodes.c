@@ -5,7 +5,7 @@
 //Retorna uma lista de Frutas.
 Frutas* criaListaDeFrutas() {
 	Frutas*	lista;
-	lista				= (Frutas*)malloc(sizeof(Frutas)); //No Head
+	lista				= (Frutas*)malloc(sizeof(Frutas)); //Node Head
 	if(!lista) { exit(EXIT_FAILURE); }
 	lista->proximo_no	= NULL;
 	lista->variedade	= NULL;
@@ -21,7 +21,7 @@ void adicionarFruta(Frutas** lista) {
 		novo					= (Frutas*)malloc(sizeof(Frutas));
 		if(!novo) { exit(EXIT_FAILURE); }
 		printf("Adicione uma fruta a lista: ");
-		_retScanf				= scanf("%s", novo->nome);
+		_retScanf				= scanf("%s", novo->nome);	//TODO: scanf com %49s
 		novo->proximo_no		= (*lista)->proximo_no;
 		novo->variedade			= NULL;
 		(*lista)->proximo_no	= novo;
@@ -38,7 +38,7 @@ void adicionarVariedade(Frutas** lista) {
 		novo							= (Tipos*)malloc(sizeof(Tipos));
 		if(!novo) { exit(EXIT_FAILURE); }
 		printf("Adicione uma variedade a lista de %s(s): ", (*lista)->proximo_no->nome);	//TODO: verificar se dá pra imprimir char acentudos em todos os casos
-		_retScanf						= scanf("%s", novo->nome);
+		_retScanf						= scanf("%s", novo->nome);	//TODO: scanf com %49s
 		novo->proximo_no				= (*lista)->proximo_no->variedade;
 		(*lista)->proximo_no->variedade	= novo;
 	} while(deveAdicionarNovoItem());
