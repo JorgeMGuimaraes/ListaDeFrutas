@@ -48,3 +48,28 @@ int deveAdicionarNovoItem() {
 	_retScanf = scanf("%s", sim_ou_nao);
 	return sim_ou_nao[0] == 's' || sim_ou_nao[0] == 'S';
 }
+
+//Imprime lista com todas as frutas, seguidas de suas variedades.
+void imprimirLista(Frutas** lista) {
+	int contFrutas = 0, contVariedades = 0;
+	Frutas* fruta;
+	Tipos*	tipo;
+	fruta = (*lista)->proximo_no;
+	printf("+===========================================================+\n");
+	printf("+===================== Lista de Frutas =====================+\n");
+	printf("+===========================================================+\n\n");
+	while(fruta) {
+		contFrutas++;
+		printf("> %s\n", fruta->nome);
+		tipo = fruta->variedade;
+		while(tipo) {
+			contVariedades++;
+			printf("\t- %s\n", tipo->nome);
+			tipo = tipo->proximo_no;
+		}
+		printf("\n");
+		fruta = fruta->proximo_no;
+	}
+	printf("Total de %d frutas e %d variedades.\n", contFrutas, contVariedades);
+	return;
+}

@@ -16,3 +16,4 @@ typedef struct NODE_VARIEDADE{
 Frutas*	criaListaDeFrutas();
 void	adicionarFruta(Frutas** fruta);
 void	adicionarVariedade(Frutas** lista);
+void	imprimirLista(Frutas** lista);
