@@ -12,7 +12,7 @@ void boasVindas() {
 int menuSelecao() {
 	int resposta, _retScanf;
 	do {
-		printf("\n  [%d] - Adicionar fruta ao inventario\n",			ADICIONAR_FRUTA);
+		printf("\n  [%d] - Adicionar fruta ao inventario\n",		ADICIONAR_FRUTA);
 		printf("  [%d] - Adicionar variedades a alguma fruta\n",	ADICIONAR_VARIEDADE);
 		printf("  [%d] - Imprimir inventario na tela\n",			IMPRIMIR_INVENTARIO);
 		printf("  [%d] - Salvar as alteracoes no banco de dados\n", SALVAR_DADOS);
@@ -53,31 +53,46 @@ void salvar(Frutas** lista) {
 		fprintf(fp, "#%s\n", fruta->nome);
 		tipo	= fruta->variedade;
 		while(tipo) {
-			fprintf(fp, "$%s\n", tipo->nome);
+			fprintf(fp, "%s\n", tipo->nome);
 			tipo = tipo->proximo_no;
 		}
 		fruta	= fruta->proximo_no;
 	}
-	fclose(fp);//TODO: arquivo salvo com sucesso
+	fclose(fp);
+	printf("Dados salvos com sucesso.\n\n");
 	return;
 }
 
 //Carrega os dados do disco para a memoria.
 void carregar(Frutas** lista) {
-	FILE* fp;
-	int _retScanf;
-	char dado[50];
+	FILE*	fp;
+	int
+			_retScanf,
+			i,
+			indice = 0;
+	char
+			dado[LIMITE_NOME],
+			nome[LIMITE_NOME];
 	fp			= fopen(ARQUIVO, "r");
-	while(0) {//not eof
+	(*lista)	= criaListaDeFrutas();
+	_retScanf	= fscanf(fp, "%s", dado);
+	while(_retScanf > 0) {
 		if(dado[0] == '#') {
-			//criar nova fruta e add em lista
+			i			= 1;
+			while(dado[i] != '\0') {
+				nome[i - 1] = dado[i];
+				++i;
+			}
+			nome[i - 1] = '\0';
+			adicionarFruta(lista, nome);
 		}
 		else {
-			//criar nova variedade e add a fruta
+			Frutas* f;
+			f			= getFruta(lista, indice);
+			adicionarVariedade(&f, dado);
 		}
+		_retScanf		= fscanf(fp, "%s", dado);
 	}
-
-	_retScanf	= fscanf(fp, "%s", dado);
 	fclose(fp);
 	return;
 }

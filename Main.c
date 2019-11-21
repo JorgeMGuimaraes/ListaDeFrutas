@@ -4,16 +4,15 @@
 #include "Utils.h"
 
 int main() {
-	Frutas* lista = NULL;
+	Frutas* lista;
 	int
 			opcao,
 			_retScanf;
-	//adicionarVariedade(&lista);
-	//imprimirLista(&lista);
+	carregar(&lista);
 	boasVindas();
 	opcao = menuSelecao();
 	do {
-		switch(opcao) {
+		switch(opcao) {//TODO: adicionar opção abrir relatorio
 		case ADICIONAR_FRUTA:
 			if(!lista) { lista = criaListaDeFrutas(); }
 			do {
@@ -26,7 +25,6 @@ int main() {
 
 		case ADICIONAR_VARIEDADE:
 			{
-			//int		i;
 			Frutas*	fruta;
 			fruta	= getFruta(&lista, selecionarFruta(&lista));
 			if(!fruta) { exit(EXIT_FAILURE); }
@@ -45,9 +43,11 @@ int main() {
 			salvar(&lista);
 			break;
 		case SAIR:
+			//system("start relatorio.html");
 			exit(EXIT_SUCCESS);
 		}
 		opcao = menuSelecao();
 	} while(opcao != SAIR);
+	
 	return 0;
 }

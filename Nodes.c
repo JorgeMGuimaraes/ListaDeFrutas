@@ -90,5 +90,6 @@ void imprimirLista(Frutas** lista) {	//TODO: mover para utils
 		fruta	= fruta->proximo_no;
 	}
 	printf("Total de %d frutas e %d variedades.\n", contFrutas, contVariedades);
+	//Todo: adicionar +===+ no fim
 	return;
 }
