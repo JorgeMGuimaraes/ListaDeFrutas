@@ -9,46 +9,59 @@ Frutas* criaListaDeFrutas() {
 	if(!lista) { exit(EXIT_FAILURE); }
 	lista->proximo_no	= NULL;
 	lista->variedade	= NULL;
-	adicionarFruta(&lista);
 	return lista;
 }
 
 //Adiciona uma fruta a lista de frutas eistente.
-void adicionarFruta(Frutas** lista) {
-	do {
-		Frutas*	novo;
-		int		_retScanf;
-		novo					= (Frutas*)malloc(sizeof(Frutas));
-		if(!novo) { exit(EXIT_FAILURE); }
-		printf("Adicione uma fruta a lista: ");
-		_retScanf				= scanf("%s", novo->nome);	//TODO: scanf com %49s
-		novo->proximo_no		= (*lista)->proximo_no;
-		novo->variedade			= NULL;
-		(*lista)->proximo_no	= novo;
-	} while(deveAdicionarNovoItem());
+void adicionarFruta(Frutas** lista, char nome[LIMITE_NOME]) {
+	Frutas*	novo;
+	int
+			_retScanf,
+			i;
+	novo					= (Frutas*)malloc(sizeof(Frutas));
+	if(!novo) { exit(EXIT_FAILURE); }
+	i						= 0;
+	while(nome[i] != '\0') {
+		novo->nome[i]		= nome[i];
+		++i;
+	}
+	novo->nome[i]			= '\0';
+	novo->proximo_no		= (*lista)->proximo_no;
+	novo->variedade			= NULL;
+	(*lista)->proximo_no	= novo;
 	return;
 }
 
+//Retorna uma fruta de indice i
+Frutas* getFruta(Frutas** lista, int indice) {
+	Frutas* fruta;
+	int		i;
+	fruta = (*lista)->proximo_no;
+	for(i = 1; i < indice; i++) { fruta = fruta->proximo_no; }
+	return fruta;
+}
+
 //Adiciona uma variedade de fruta a um dos nodes da lista.
-void adicionarVariedade(Frutas** lista) {
-	do {
-		Tipos*	novo;
-		char	nome[50];
-		int		_retScanf;
-		novo							= (Tipos*)malloc(sizeof(Tipos));
-		if(!novo) { exit(EXIT_FAILURE); }
-		printf("Adicione uma variedade a lista de %s(s): ", (*lista)->proximo_no->nome);	//TODO: verificar se dá pra imprimir char acentudos em todos os casos
-		_retScanf						= scanf("%s", novo->nome);	//TODO: scanf com %49s
-		novo->proximo_no				= (*lista)->proximo_no->variedade;
-		(*lista)->proximo_no->variedade	= novo;
-	} while(deveAdicionarNovoItem());
+void adicionarVariedade(Frutas** fruta, char nome[LIMITE_NOME]) {
+	Tipos*	novo;
+	int		i;
+	novo				= (Tipos*)malloc(sizeof(Tipos));
+	if(!novo) { exit(EXIT_FAILURE); }
+	i					= 0;
+	while(nome[i] != '\0') {
+		novo->nome[i]	= nome[i];
+		++i;
+	}
+	novo->nome[i]		= '\0';
+	novo->proximo_no	= (*fruta)->variedade;
+	(*fruta)->variedade	= novo;
 	return;
 }
 
 //Imprime menu de confirmacao para adionar novo item e retorna booleano da resposta.
 int deveAdicionarNovoItem() {
 	int		_retScanf;
-	char	sim_ou_nao[10];
+	char	sim_ou_nao[LIMITE_NOME];
 	printf("Deseja adicionar novo item?[s/S] ou [n/N]: ");
 	_retScanf = scanf("%s", sim_ou_nao);
 	return sim_ou_nao[0] == 's' || sim_ou_nao[0] == 'S';

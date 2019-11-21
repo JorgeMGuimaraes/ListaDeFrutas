@@ -5,7 +5,9 @@
 
 int main() {
 	Frutas* lista = NULL;
-	int		opcao;
+	int
+			opcao,
+			_retScanf;
 	//adicionarVariedade(&lista);
 	//imprimirLista(&lista);
 	boasVindas();
@@ -13,14 +15,29 @@ int main() {
 	do {
 		switch(opcao) {
 		case ADICIONAR_FRUTA:
-			if(lista)	{ adicionarFruta(&lista); }
-			else		{ lista = criaListaDeFrutas(); }
+			if(!lista) { lista = criaListaDeFrutas(); }
+			do {
+				char	nome[LIMITE_NOME];
+				printf("Adicione uma fruta a lista: ");
+				_retScanf = scanf("%49s", nome);
+				adicionarFruta(&lista, nome);
+			} while(deveAdicionarNovoItem());
 			break;
 
 		case ADICIONAR_VARIEDADE:
-			//TODO: selecionar a fruta
-			adicionarVariedade(&lista);//TODO: loop do while deve estar aqui
+			{
+			int		i = 2;
+			Frutas*	fruta;
+			fruta	= getFruta(&lista, i);
+			if(!fruta) { exit(EXIT_FAILURE); }
+			do {
+				char	nome[LIMITE_NOME];
+				printf("Adicione uma variedade a lista de %s(s): ", fruta->nome);
+				_retScanf	= scanf("%49s", nome);
+				adicionarVariedade(&fruta, nome);
+			} while(deveAdicionarNovoItem());
 			break;
+			}
 		case IMPRIMIR_INVENTARIO:
 			imprimirLista(&lista);
 			break;
