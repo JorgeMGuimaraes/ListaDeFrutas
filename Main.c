@@ -26,9 +26,9 @@ int main() {
 
 		case ADICIONAR_VARIEDADE:
 			{
-			int		i = 2;
+			//int		i;
 			Frutas*	fruta;
-			fruta	= getFruta(&lista, i);
+			fruta	= getFruta(&lista, selecionarFruta(&lista));
 			if(!fruta) { exit(EXIT_FAILURE); }
 			do {
 				char	nome[LIMITE_NOME];

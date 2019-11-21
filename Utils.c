@@ -12,9 +12,9 @@ void boasVindas() {
 int menuSelecao() {
 	int resposta, _retScanf;
 	do {
-		printf("  [%d] - Adicionar fruta ao inventario\n",			ADICIONAR_FRUTA);
+		printf("\n  [%d] - Adicionar fruta ao inventario\n",			ADICIONAR_FRUTA);
 		printf("  [%d] - Adicionar variedades a alguma fruta\n",	ADICIONAR_VARIEDADE);
-		printf("  [%d] - Imprimir na tela o inventario\n",			IMPRIMIR_INVENTARIO);
+		printf("  [%d] - Imprimir inventario na tela\n",			IMPRIMIR_INVENTARIO);
 		printf("  [%d] - Salvar as alteracoes no banco de dados\n", SALVAR_DADOS);
 		printf("  [%d] - Sair\n",									SAIR);
 		printf("\nEscolha uma opcao: ");
@@ -23,6 +23,25 @@ int menuSelecao() {
 	return resposta;
 }
 
+//Retorna o indice da fruta selecionada pelo usuario
+int selecionarFruta(Frutas** lista) {
+	int
+			resposta,
+			contador,
+			_retScanf;
+	Frutas* aux;
+	do {
+		aux			= (*lista)->proximo_no;
+		contador	= 0;
+		while(aux) {
+			printf("[%d] - %s\n", ++contador, aux->nome);
+			aux		= aux->proximo_no;
+		}
+		printf("Escolha uma fruta: ");
+		_retScanf	= scanf("%d", &resposta);
+	} while(0 > resposta || resposta > contador);
+	return resposta;
+}
 //Salva os dados atuais em disco.
 void salvar(Frutas** lista) {
 	FILE*	fp;
@@ -39,7 +58,7 @@ void salvar(Frutas** lista) {
 		}
 		fruta	= fruta->proximo_no;
 	}
-	fclose(fp);
+	fclose(fp);//TODO: arquivo salvo com sucesso
 	return;
 }
 

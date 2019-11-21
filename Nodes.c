@@ -68,7 +68,7 @@ int deveAdicionarNovoItem() {
 }
 
 //Imprime lista com todas as frutas, seguidas de suas variedades.
-void imprimirLista(Frutas** lista) {
+void imprimirLista(Frutas** lista) {	//TODO: mover para utils
 	int		contFrutas		= 0,
 			contVariedades	= 0;
 	Frutas* fruta;
@@ -83,7 +83,7 @@ void imprimirLista(Frutas** lista) {
 		tipo	= fruta->variedade;
 		while(tipo) {
 			contVariedades++;
-			printf("\t- %s\n", tipo->nome);
+			printf("   - %s\n", tipo->nome);
 			tipo = tipo->proximo_no;
 		}
 		printf("\n");

@@ -9,7 +9,8 @@
 #define SALVAR_DADOS		4
 #define SAIR				5
 
-void boasVindas();
-int menuSelecao();
-void salvar(Frutas** lista);
-void carregar(Frutas** lista);
+void	boasVindas();
+int		menuSelecao();
+int		selecionarFruta(Frutas** lista);
+void	salvar(Frutas** lista);
+void	carregar(Frutas** lista);
